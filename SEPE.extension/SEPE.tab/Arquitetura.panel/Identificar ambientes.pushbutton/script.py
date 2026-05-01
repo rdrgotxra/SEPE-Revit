@@ -1,7 +1,7 @@
-"""Identifica e preenche o parâmetro "Ambiente" todas as paredes do projeto."""
-
 # -*- coding: utf-8 -*-
 #! ironpython3
+#
+"""Identifica e preenche o parâmetro "Ambiente" todas as paredes do projeto."""
 
 from Autodesk.Revit.DB import (
     BuiltInParameter,

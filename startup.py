@@ -1,17 +1,10 @@
 import subprocess
 
 try:
-    result = subprocess.run(
-        ["pyrevit", "extensions", "update", "SEPE-Revit"],
-        capture_output=True,
-        text=True,
-        check=False,
-    )
+    returncode = subprocess.call(["pyrevit", "extensions", "update", "SEPE-Revit"])
 
-    if result.returncode != 0:
+    if returncode != 0:
         print("Erro ao atualizar.")
-        if result.stderr:
-            print(result.stderr)
 
 except Exception as e:
     print("Erro ao atualizar.", e)

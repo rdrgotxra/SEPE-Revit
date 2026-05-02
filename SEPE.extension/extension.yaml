@@ -1,0 +1,7 @@
+name: SEPE-Revit
+type: ui
+builtin: false
+author: Rodrigo Teixeira
+description: Extensão em pyRevit com ferramentas e automações para a Secretaria de Projetos Estratégicos de Pernambuco.
+url: https://github.com/rdrgotxra/SEPE-Revit.git
+website: https://github.com/rdrgotxra/SEPE-Revit

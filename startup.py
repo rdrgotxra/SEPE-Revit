@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from pyrevit.versionmgr import updater
 from pyrevit import script
 

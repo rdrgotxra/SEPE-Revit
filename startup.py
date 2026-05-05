@@ -1,10 +1,10 @@
-import subprocess
+from pyrevit.versionmgr import updater
+from pyrevit import script
+
+logger = script.get_logger()
 
 try:
-    returncode = subprocess.call(["pyrevit", "extensions", "update", "SEPE-Revit"])
-
-    if returncode != 0:
-        print("Erro ao atualizar.")
-
+    updater.check_for_updates()
+    logger.info("Extensão verificada e atualizada.")
 except Exception as e:
-    print("Erro ao atualizar.", e)
+    logger.error("Erro ao atualizar: {}".format(e))

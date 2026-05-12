@@ -1,33 +1,39 @@
 # -*- coding: utf-8 -*-
 #! ironpython3
-#
+
 """Identifica e preenche o parâmetro "Ambiente" todas as paredes do projeto."""
 
 from Autodesk.Revit.DB import (
+    XYZ,
     BuiltInParameter,
     FilteredElementCollector,
-    LocationCurve,
     Transaction,
-    UnitTypeId,
-    UnitUtils,
     Wall,
 )
 
-doc = __revit__.ActiveUIDocument.Document
+doc = __revit__.ActiveUIDocument.Document  # é o projeto aberto
 
-OFFSET = UnitUtils.ConvertToInternalUnits(0.30, UnitTypeId.Meters)
+OFFSET = 0.003
 PARAM_AMBIENTE = "Ambiente"
 
 
+# retorna um ponto à frente da face externa da parede
 def get_point(wall):
     loc = wall.Location
-    if not isinstance(loc, LocationCurve):
-        return None
-    point = loc.Curve.Evaluate(0.5, True)
+
     normal = wall.Orientation.Normalize()
-    return point + normal.Multiply(OFFSET)
+    offset = (wall.Width / 2.0) + OFFSET
+
+    point = loc.Curve.Evaluate(0.5, True)
+    point += normal.Multiply(offset)
+
+    bbox = wall.get_BoundingBox(None)
+    z_mid = (bbox.Min.Z + bbox.Max.Z) / 2.0
+
+    return XYZ(point.X, point.Y, z_mid)
 
 
+# lista com parede em todas as fases
 def get_walls(doc):
     return (
         FilteredElementCollector(doc)
@@ -37,13 +43,20 @@ def get_walls(doc):
     )
 
 
+# pega fase de criação da parede => considerar depois outros elementos
 def get_phase(wall, doc):
     phase_id = wall.get_Parameter(BuiltInParameter.PHASE_CREATED).AsElementId()
     return doc.GetElement(phase_id)
 
 
-def get_ambiente(point, phase, doc):
-    return doc.GetRoomAtPoint(point, phase)
+# retorna o nome do ambiente, pronto para escrever no parâmetro
+def get_ambient_name(point, phase, doc):
+    ambient = doc.GetRoomAtPoint(point, phase)
+
+    if ambient is None:
+        return None
+
+    return ambient.get_Parameter(BuiltInParameter.ROOM_NAME).AsString()
 
 
 def set_ambiente(wall, nome):
@@ -57,28 +70,22 @@ def set_ambiente(wall, nome):
 def main(doc):
     walls = get_walls(doc)
 
+    # pyrevit envia todos os dados de uma vez só, evitando erros
     with Transaction(doc, "SEPE - Identificar Ambiente") as t:
         t.Start()
         try:
             for wall in walls:
+                phase = get_phase(wall, doc)
+
                 point = get_point(wall)
                 if point is None:
                     continue
 
-                phase = get_phase(wall, doc)
-                ambiente = get_ambiente(point, phase, doc)
-                if ambiente is None:
+                ambient_name = get_ambient_name(point, phase, doc)
+                if ambient_name is None:
                     continue
 
-                ambiente_nome = ambiente.get_Parameter(
-                    BuiltInParameter.ROOM_NAME
-                ).AsString()
-                param = wall.LookupParameter(PARAM_AMBIENTE)
-
-                if param and not param.IsReadOnly:
-                    param.Set(ambiente_nome)
-
-                set_ambiente(wall, ambiente_nome)
+                set_ambiente(wall, ambient_name)
 
             t.Commit()
 

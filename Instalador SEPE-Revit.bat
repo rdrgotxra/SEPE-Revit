@@ -45,6 +45,7 @@ if errorlevel 1 (
 
     where pyrevit >nul 2>nul
 
+    timeout /t 5 /nobreak >nul
     if errorlevel 1 (
         echo.
         echo pyRevit não foi encontrado após a instalação.

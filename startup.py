@@ -10,7 +10,7 @@ try:
     result = str(result).lower()
 
     if "already up-to-date" not in result:
-        print("MOSTRAR CHANGELOG")
+        print(result)
 
 except Exception as e:
     print("ERRO ao iniciar update: {}".format(e))

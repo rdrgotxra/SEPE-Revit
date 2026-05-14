@@ -1,11 +1,6 @@
 import subprocess
 
 try:
-    subprocess.Popen(
-        ["pyrevit", "extensions", "update", "SEPE-Revit"],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-        creationflags=subprocess.CREATE_NO_WINDOW,
-    )
+    subprocess.call(["pyrevit", "extensions", "update", "SEPE-Revit"])
 except Exception as e:
     print("ERRO ao iniciar update: {}".format(e))

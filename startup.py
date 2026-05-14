@@ -2,7 +2,7 @@ import subprocess
 
 try:
     subprocess.Popen(
-        ["pyrevit", "extensions", "update", "--all"],
+        ["pyrevit", "extensions", "update", "SEPE-Revit"],
         creationflags=subprocess.CREATE_NO_WINDOW,
     )
 except Exception as e:

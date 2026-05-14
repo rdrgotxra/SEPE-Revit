@@ -24,7 +24,7 @@ set EXT_URL=https://github.com/rdrgotxra/SEPE-Revit.git
 pyrevit clones >nul 2>nul
 
 if errorlevel 1 (
-    echo Executando instalador do pyRevit...
+    echo Instalando pyRevit...
 
     if not exist "%~dp0%INSTALLER%" (
         echo Instalador não encontrado:
@@ -39,7 +39,6 @@ if errorlevel 1 (
     echo Verificando instalação do pyRevit...
     pyrevit clones >nul 2>nul
 
-    timeout /t 5 /nobreak >nul
     if errorlevel 1 (
         echo pyRevit ainda não foi encontrado.
         echo Feche a janela e tente novamente.
@@ -51,7 +50,7 @@ if errorlevel 1 (
 pyrevit clones | findstr /i /c:"%CLONE_NAME%" >nul
 
 if errorlevel 1 (
-    echo Configurando o pyRevit. Pode demorar um pouco...
+    echo Criando clone pyRevit...
     pyrevit clone "%CLONE_NAME%" core --debug
 
     if errorlevel 1 (
@@ -61,6 +60,7 @@ if errorlevel 1 (
     )
 )
 
+echo Conectando clone Revit...
 pyrevit attach "%CLONE_NAME%" default --installed >nul 2>nul
 
 if errorlevel 1 (
@@ -69,7 +69,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo Instalando a extensão da SEPE no seu Revit...
+echo Instalando extensão %EXT_NAME%...
 pyrevit extend ui "%EXT_NAME%" "%EXT_URL%" --branch=main >nul 2>nul
 
 if errorlevel 1 (

@@ -1,10 +1,9 @@
 import subprocess
 
 try:
-    subprocess.call(
-        ["pyrevit", "extensions", "update", "SEPE-Revit"],
-        shell=True,
-        creationflags=0x08000000,
+    subprocess.Popen(
+        ["pyrevit", "extensions", "update", "--all"],
+        creationflags=subprocess.CREATE_NO_WINDOW,
     )
 except Exception as e:
     print("ERRO ao iniciar update: {}".format(e))

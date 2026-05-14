@@ -39,6 +39,7 @@ if errorlevel 1 (
     echo Verificando instalação do pyRevit...
     pyrevit clones >nul 2>nul
 
+    timeout /t 5 /nobreak >nul
     if errorlevel 1 (
         echo pyRevit ainda não foi encontrado.
         echo Feche a janela e tente novamente.

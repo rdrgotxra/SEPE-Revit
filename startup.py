@@ -9,7 +9,7 @@ try:
 
     result = str(result).lower()
 
-    if "already up-to-date" not in result:
+    if "is already up to date" not in result:
         print("rodrigo!")
 
 except Exception as e:

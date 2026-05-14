@@ -1,12 +1,16 @@
 import subprocess
 
-from pyrevit.loader import sessionmgr
-
 try:
-    subprocess.call(
-        "pyrevit extensions update SEPE-Revit", shell=True, creationflags=0x08000000
+    result = subprocess.check_output(
+        "pyrevit extensions update SEPE-Revit --debug",
+        shell=True,
+        creationflags=0x08000000,
     )
-    sessionmgr.reload_pyrevit()
+
+    result = str(result).lower()
+
+    if "already up-to-date" not in result:
+        print("MOSTRAR CHANGELOG")
 
 except Exception as e:
     print("ERRO ao iniciar update: {}".format(e))

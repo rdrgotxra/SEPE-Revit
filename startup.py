@@ -1,9 +1,6 @@
-from pyrevit.versionmgr import updater
+from pyrevit.extensions import extensionmgr
 
-try:
-    updater.update_extension("SEPE-Revit")
+extensions = extensionmgr.get_thirdparty_extension_data()
 
-except Exception as e:
-    from pyrevit import framework
-
-    framework.debug_print("Falha ao atualizar SEPE-Revit: {}".format(e))
+for ext in extensions:
+    print(ext.name)

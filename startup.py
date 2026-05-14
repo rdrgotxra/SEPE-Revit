@@ -10,7 +10,7 @@ try:
     result = str(result).lower()
 
     if "already up-to-date" not in result:
-        print("atualizou!")
+        print("rodrigo!")
 
 except Exception as e:
     print("ERRO ao iniciar update: {}".format(e))

@@ -2,7 +2,7 @@ import subprocess
 
 try:
     result = subprocess.check_output(
-        "pyrevit extensions update SEPE-Revit",
+        "pyrevit extensions update SEPE-Revit --debug",
         shell=True,
         creationflags=0x08000000,
     )
@@ -10,7 +10,7 @@ try:
     result = str(result).lower()
 
     if "already up-to-date" not in result:
-        print(result)
+        print("atualizou!")
 
 except Exception as e:
     print("ERRO ao iniciar update: {}".format(e))

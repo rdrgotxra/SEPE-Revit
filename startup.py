@@ -13,4 +13,4 @@ try:
         print(result)
 
 except Exception as e:
-    print("ERRO ao iniciar update: {}".format(e))
+    print("ROD ERRO ao iniciar update: {}".format(e))

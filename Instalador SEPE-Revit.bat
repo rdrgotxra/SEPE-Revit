@@ -50,7 +50,7 @@ if errorlevel 1 (
 pyrevit clones | findstr /i /c:"%CLONE_NAME%" >nul
 
 if errorlevel 1 (
-    echo Pode demorar um pouco...
+    echo Baixando dependências do pyRevit...
     pyrevit clone "%CLONE_NAME%" core >nul 2>nul
 
     if errorlevel 1 (
@@ -60,7 +60,6 @@ if errorlevel 1 (
     )
 )
 
-echo Conectando clone ao Revit...
 pyrevit attach "%CLONE_NAME%" default --installed >nul 2>nul
 
 if errorlevel 1 (
@@ -69,7 +68,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo Instalando a extensão da SEPE no seu Revit...
+echo Instalando a extensão da SEPE...
 pyrevit extend ui "%EXT_NAME%" "%EXT_URL%" --branch=main >nul 2>nul
 
 if errorlevel 1 (

@@ -52,7 +52,7 @@ pyrevit clones | findstr /i /c:"%CLONE_NAME%" >nul
 
 if errorlevel 1 (
     echo Configurando o pyRevit. Pode demorar um pouco...
-    pyrevit clone "%CLONE_NAME%" core --debug
+    pyrevit clone "%CLONE_NAME%" core >nul 2>nul
 
     if errorlevel 1 (
         echo Falha ao criar clone.

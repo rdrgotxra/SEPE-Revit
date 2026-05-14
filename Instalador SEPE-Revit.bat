@@ -26,20 +26,19 @@ pyrevit clones >nul 2>nul
 if errorlevel 1 (
     echo Executando instalador do pyRevit...
 
-    if not exist "%~dp0%INSTALLER%" (
+    if not exist "%INSTALLER%" (
         echo Instalador não encontrado:
-        echo %~dp0%INSTALLER%
+        echo %INSTALLER%
         pause
         exit /b 1
     )
 
-    start /wait "" "%~dp0%INSTALLER%"
+    start /wait "" "%INSTALLER%"
     timeout /t 5 /nobreak >nul
 
     echo Verificando instalação do pyRevit...
     pyrevit clones >nul 2>nul
 
-    timeout /t 5 /nobreak >nul
     if errorlevel 1 (
         echo pyRevit ainda não foi encontrado.
         echo Feche a janela e tente novamente.
@@ -51,7 +50,7 @@ if errorlevel 1 (
 pyrevit clones | findstr /i /c:"%CLONE_NAME%" >nul
 
 if errorlevel 1 (
-    echo Configurando o pyRevit. Pode demorar um pouco...
+    echo Pode demorar um pouco...
     pyrevit clone "%CLONE_NAME%" core >nul 2>nul
 
     if errorlevel 1 (
@@ -61,10 +60,11 @@ if errorlevel 1 (
     )
 )
 
+echo Conectando clone ao Revit...
 pyrevit attach "%CLONE_NAME%" default --installed >nul 2>nul
 
 if errorlevel 1 (
-    echo Falha ao executar attach.
+    echo Falha ao conectar o clone ao Revit.
     pause
     exit /b 1
 )

@@ -1,6 +1,12 @@
-from pyrevit.extensions import extensionmgr
+import subprocess
 
-extensions = extensionmgr.get_thirdparty_extension_data()
+try:
+    subprocess.Popen(
+        ["pyrevit", "extensions", "update"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        creationflags=subprocess.CREATE_NO_WINDOW,
+    )
 
-for ext in extensions:
-    print(ext.name)
+except:
+    pass

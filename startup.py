@@ -1,13 +1,11 @@
 import subprocess
 
-from pyrevit import framework
-
 try:
     subprocess.Popen(
-        ["pyrevit", "extensions", "update", "--all"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        ["pyrevit", "extensions", "update", "SEPE-Revit"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
         creationflags=subprocess.CREATE_NO_WINDOW,
     )
 except Exception as e:
-    framework.debug_print("ERRO ao iniciar update: {}".format(e))
+    print("ERRO ao iniciar update: {}".format(e))

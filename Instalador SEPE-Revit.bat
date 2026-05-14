@@ -1,4 +1,5 @@
 @echo off
+setlocal
 chcp 65001 >nul
 
 title Instalador SEPE-Revit
@@ -12,90 +13,71 @@ echo    ███████║███████╗██║     ███�
 echo    ╚══════╝╚══════╝╚═╝     ╚══════╝
 echo.
 echo    [94m------ C É L U L A  B I M ------[0m
+
 echo.
 
-set "INSTALLER=pyRevit_6.4.0.26100_signed.exe"
+set INSTALLER=%USERPROFILE%\DC\ACCDocs\SEPE\BIBLIOTECA\Project Files\REVIT\PYREVIT\pyRevit_CLI_6.4.0.26100_signed.exe
+set CLONE_NAME=SEPE-Revit
+set EXT_NAME=SEPE-Revit
+set EXT_URL=https://github.com/rdrgotxra/SEPE-Revit.git
 
-set "EXT_PATH="
-set "PATH1=%USERPROFILE%\DC\ACCDocs\SEPE\BIBLIOTECA\Project Files\REVIT\PYREVIT"
-set "PATH2=%USERPROFILE%\Autodesk Docs\SEPE\BIBLIOTECA\Project Files\REVIT\PYREVIT"
-set "PATH3=%USERPROFILE%\Documents\SEPE-Revit\PYREVIT"
-set "PATH4=%~dp0SEPE-Revit"
-
-where pyrevit >nul 2>nul
+pyrevit clones >nul 2>nul
 
 if errorlevel 1 (
-
-    echo.
-    echo Instalando pyRevit...
+    echo Executando instalador do pyRevit...
 
     if not exist "%~dp0%INSTALLER%" (
-        echo.
         echo Instalador não encontrado:
-        echo.
         echo %~dp0%INSTALLER%
-        echo.
         pause
         exit /b 1
     )
 
     start /wait "" "%~dp0%INSTALLER%"
+    timeout /t 5 /nobreak >nul
 
-    call refreshenv >nul 2>nul
-
-    where pyrevit >nul 2>nul
+    echo Verificando instalação do pyRevit...
+    pyrevit clones >nul 2>nul
 
     if errorlevel 1 (
-        echo.
-        echo pyRevit não foi encontrado após a instalação.
-        echo Reinicie o terminal e tente novamente.
-        echo.
+        echo pyRevit ainda não foi encontrado.
+        echo Feche a janela e tente novamente.
         pause
         exit /b 1
     )
-
-    pyrevit extensions disable pyRevitTools >nul 2>nul
-
 )
 
-if exist "%PATH1%" set "EXT_PATH=%PATH1%"
-if exist "%PATH2%" set "EXT_PATH=%PATH2%"
-if exist "%PATH3%" set "EXT_PATH=%PATH3%"
-if exist "%PATH4%" set "EXT_PATH=%PATH4%"
+pyrevit clones | findstr /i /c:"%CLONE_NAME%" >nul
 
-if "%EXT_PATH%"=="" (
+if errorlevel 1 (
+    echo Configurando o pyRevit. Pode demorar um pouco...
+    pyrevit clone "%CLONE_NAME%" core --debug
 
-    echo Pasta da extensão não encontrada.
-    echo.
-    echo Locais verificados:
-    echo.
-    echo %PATH1%
-    echo %PATH2%
-    echo %PATH3%
-    echo %PATH4%
-    echo.
+    if errorlevel 1 (
+        echo Falha ao criar clone.
+        pause
+        exit /b 1
+    )
+)
+
+pyrevit attach "%CLONE_NAME%" default --installed >nul 2>nul
+
+if errorlevel 1 (
+    echo Falha ao executar attach.
     pause
     exit /b 1
-
 )
 
-echo Registrando extensão no pyRevit...
-
-pyrevit extensions paths add "%EXT_PATH%" >nul 2>nul
+echo Instalando a extensão da SEPE no seu Revit...
+pyrevit extend ui "%EXT_NAME%" "%EXT_URL%" --branch=main >nul 2>nul
 
 if errorlevel 1 (
-    echo Falha no registro da extensão.
+    echo Falha na instalação da extensão. Continuando...
 )
 
-echo Associando pyRevit às versões do Revit...
-
-pyrevit attach default >nul 2>nul
-
-if errorlevel 1 (
-    echo Falha na associação do pyRevit ao Revit.
-)
-
-echo [93mInstalação concluída! Bons projetos![0m
+echo.
+echo [93mInstalação concluída![0m
+echo [93mBons Projetos! :)[0m
 echo.
 
 pause

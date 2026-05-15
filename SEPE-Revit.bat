@@ -51,7 +51,7 @@ if errorlevel 1 (
 pyrevit clones | findstr /i /c:"%CLONE_NAME%" >nul
 
 if errorlevel 1 (
-    echo Baixando dependencias do pyRevit...
+    echo Baixando dependencias. Pode demorar...
     pyrevit clone "%CLONE_NAME%" core >nul 2>nul
 
     if errorlevel 1 (

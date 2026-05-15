@@ -11,7 +11,7 @@ echo    SSSS   EEEE   PPPPP   EEEE
 echo       SS  EE     PP      EE
 echo   SSSSS   EEEEE  PP      EEEEE
 echo.
-echo   -------- CÉLULA BIM --------
+echo    ------ CELULA BIM ------
 echo.
 
 set INSTALLER=%USERPROFILE%\DC\ACCDocs\SEPE\BIBLIOTECA\Project Files\REVIT\PYREVIT\pyRevit_CLI_6.4.0.26100_signed.exe
@@ -25,7 +25,7 @@ if errorlevel 1 (
     echo Executando instalador do pyRevit...
 
     if not exist "%INSTALLER%" (
-        echo Instalador não encontrado:
+        echo Instalador nao encontrado:
         echo %INSTALLER%
         pause
         exit /b 1
@@ -34,11 +34,11 @@ if errorlevel 1 (
     start /wait "" "%INSTALLER%"
     timeout /t 5 /nobreak >nul
 
-    echo Verificando instalação do pyRevit...
+    echo Verificando instalacao do pyRevit...
     pyrevit clones >nul 2>nul
 
     if errorlevel 1 (
-        echo pyRevit ainda não foi encontrado.
+        echo pyRevit ainda nao foi encontrado.
         echo Feche a janela e tente novamente.
         pause
         exit /b 1
@@ -48,7 +48,7 @@ if errorlevel 1 (
 pyrevit clones | findstr /i /c:"%CLONE_NAME%" >nul
 
 if errorlevel 1 (
-    echo Baixando dependências do pyRevit...
+    echo Baixando dependencias do pyRevit...
     pyrevit clone "%CLONE_NAME%" core >nul 2>nul
 
     if errorlevel 1 (
@@ -71,11 +71,11 @@ echo Instalando a extensao da SEPE...
 pyrevit extend ui "%EXT_NAME%" "%EXT_URL%" --branch=main >nul 2>nul
 
 if errorlevel 1 (
-    echo Falha na instalação da extensão. Continuando...
+    echo Falha na instalacao da extensao. Continuando...
 )
 
 echo.
-echo Instalação concluída!
+echo Instalacao concluida!
 echo Bons projetos! :)
 echo.
 

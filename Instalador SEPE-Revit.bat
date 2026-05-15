@@ -11,7 +11,7 @@ echo    SSSS   EEEE   PPPPP   EEEE
 echo       SS  EE     PP      EE
 echo   SSSSS   EEEEE  PP      EEEEE
 echo.
-echo    ------ CELULA BIM ------
+echo    ------- CELULA BIM -------
 echo.
 
 set INSTALLER=%USERPROFILE%\DC\ACCDocs\SEPE\BIBLIOTECA\Project Files\REVIT\PYREVIT\pyRevit_CLI_6.4.0.26100_signed.exe
@@ -76,7 +76,7 @@ if errorlevel 1 (
 
 echo.
 echo Instalacao concluida!
-echo Bons Projetos! :)
+echo Bons projetos! :)
 echo.
 
 pause

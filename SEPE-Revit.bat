@@ -12,7 +12,7 @@ echo     SS  EE     PP      EE
 echo SSSSS   EEEEE  PP      EEEEE
 echo.
 echo Governo do Estado de Pernambuco
-echo Secretaria de Projetos Estratégicos
+echo Secretaria de Projetos Estrategicos
 echo.
 echo Bem-vindos ao plugin da SEPE!
 echo.

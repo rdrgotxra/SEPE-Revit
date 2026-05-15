@@ -5,13 +5,16 @@ chcp 65001 >nul
 title Instalador SEPE-Revit
 
 echo.
-echo    SSSSS  EEEEE  PPPPP   EEEEE
-echo   SS      EE     PP  PP  EE
-echo    SSSS   EEEE   PPPPP   EEEE
-echo       SS  EE     PP      EE
-echo   SSSSS   EEEEE  PP      EEEEE
+echo  SSSSS  EEEEE  PPPPP   EEEEE
+echo SS      EE     PP  PP  EE
+echo  SSSS   EEEE   PPPPP   EEEE
+echo     SS  EE     PP      EE
+echo SSSSS   EEEEE  PP      EEEEE
 echo.
-echo    ------ CELULA BIM ------
+echo Governo do Estado de Pernambuco
+echo Secretaria de Projetos Estratégicos
+echo.
+echo Bem-vindos ao plugin da SEPE!
 echo.
 
 set INSTALLER=%USERPROFILE%\DC\ACCDocs\SEPE\BIBLIOTECA\Project Files\REVIT\PYREVIT\pyRevit_CLI_6.4.0.26100_signed.exe

@@ -5,15 +5,13 @@ chcp 65001 >nul
 title Instalador SEPE-Revit
 
 echo.
-echo    ███████╗███████╗██████╗ ███████╗
-echo    ██╔════╝██╔════╝██╔══██╗██╔════╝
-echo    ███████╗█████╗  ██████╔╝█████╗
-echo    ╚════██║██╔══╝  ██╔═══╝ ██╔══╝
-echo    ███████║███████╗██║     ███████╗
-echo    ╚══════╝╚══════╝╚═╝     ╚══════╝
+echo    SSSSS  EEEEE  PPPPP   EEEEE
+echo   SS      EE     PP  PP  EE
+echo    SSSS   EEEE   PPPPP   EEEE
+echo       SS  EE     PP      EE
+echo   SSSSS   EEEEE  PP      EEEEE
 echo.
-echo    [94m------ C É L U L A  B I M ------[0m
-
+echo   -------- CÉLULA BIM --------
 echo.
 
 set INSTALLER=%USERPROFILE%\DC\ACCDocs\SEPE\BIBLIOTECA\Project Files\REVIT\PYREVIT\pyRevit_CLI_6.4.0.26100_signed.exe
@@ -60,6 +58,7 @@ if errorlevel 1 (
     )
 )
 
+echo Conectando clone ao Revit...
 pyrevit attach "%CLONE_NAME%" default --installed >nul 2>nul
 
 if errorlevel 1 (
@@ -68,7 +67,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo Instalando a extensão da SEPE...
+echo Instalando a extensao da SEPE...
 pyrevit extend ui "%EXT_NAME%" "%EXT_URL%" --branch=main >nul 2>nul
 
 if errorlevel 1 (
@@ -76,8 +75,8 @@ if errorlevel 1 (
 )
 
 echo.
-echo [93mInstalação concluída![0m
-echo [93mBons Projetos! :)[0m
+echo Instalação concluída!
+echo Bons projetos! :)
 echo.
 
 pause
